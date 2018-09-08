@@ -9,6 +9,9 @@ const bodyParser = require('body-parser');
 
 const index = require('./routes/index');
 const movie = require('./routes/movie');
+const director = require('./routes/director');
+
+
 
 const app = express();
 
@@ -34,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/api/movies', movie);
-
+app.use('/api/directors', director);
 
 
 
