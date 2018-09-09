@@ -42,6 +42,9 @@ router.post('/',(req, res, next) => {
 //tüm filimleri getiren yönlendirici
 router.get('/', (req, res) => {
   const promise = Movie.find({});
+   
+  
+  
   promise.then((data) => {
     res.json(data);
   }).catch((err) => {
