@@ -51,6 +51,14 @@ router.get('/',(req,res) => {
           $push:'$movies'
         }
       }
+    },
+    {
+      $project:{
+        _id:'$_id._id',
+        name:'$_id.name',
+        surname:'$_id.surname',
+        movies:'$movies'
+      }
     }
   ]);
    
