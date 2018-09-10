@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
@@ -17,6 +18,10 @@ router.post('/',(req,res) => {
     res.json(err);
   });
 });
+
+
+
+
 
 
 //film yönetmenleri ile filmlerini eşleştirir 
@@ -69,6 +74,101 @@ router.get('/',(req,res) => {
     res.json(err);
   });
 });
+
+
+
+
+
+
+//tek kayıt getirir yönetmen ve filleri
+//$lookup fonksiyonu ile diğer db ler arasında eşleştirme yapar
+//$unwind as içindeki bilgileri yazdırır
+//$group gruplama operatoru
+//$project hangi alanı istiyorsak o alanı bize getiri diğerleri göstermez
+router.get('/:director_id', (req, res) => {
+  const promise = Director.aggregate([
+    {
+      $match:{
+        '_id': mongoose.Types.ObjectId(req.params.director_id)
+
+      }
+    },
+    {
+      $lookup: {
+        from: 'movies',
+        localField: '_id',
+        foreignField: 'direction_id',
+        as: 'movies'
+      }
+    },
+    {
+      $unwind: {
+        path: '$movies',
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $group: {
+        _id: {
+          _id: '$_id',
+          name: '$name',
+          surname: '$surname',
+          bio: '$bio'
+        },
+        movies: {
+          $push: '$movies'
+        }
+      }
+    },
+    {
+      $project: {
+        _id: '$_id._id',
+        name: '$_id.name',
+        surname: '$_id.surname',
+        movies: '$movies'
+      }
+    }
+  ]);
+
+
+  promise.then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  });
+});
+
+
+
+//id bazlı yönetmen (director) güncelleme işlemi
+router.put('/:director_id',(req,res) => {
+  const promise = Director.findByIdAndUpdate(
+    req.params.director_id,
+    req.body,
+    {
+      new:true,
+    }
+  );
+  promise.then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  });
+});
+
+
+//id bazlı yönetmen (director) silme işlemi
+router.delete('/:director_id',(req,res) =>{
+  const promise = Director.findByIdAndRemove(req.params.director_id)
+    promise.then((director) => {
+      res.json(director);
+    }).catch((err) => {
+      res.json(err);
+    });
+  
+});
+
+
 
 
 
