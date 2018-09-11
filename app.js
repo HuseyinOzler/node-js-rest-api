@@ -18,7 +18,9 @@ const app = express();
 //db connetion
 const db = require('./helper/db')();
 
-
+//config dosyasının baglantısı secret keyin tutuldugu yer 
+const config = require('./config');
+app.set('api_secret_key', config.api_secret_key);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
