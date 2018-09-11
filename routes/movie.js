@@ -52,7 +52,7 @@ router.get('/', (req, res) => {
     {
       $unwind: '$director'
     }
-  ]);
+  ]); 
 
   promise.then((data) => {
     res.json(data);
