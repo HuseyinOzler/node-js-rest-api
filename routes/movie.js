@@ -11,7 +11,7 @@ router.post('/',(req, res, next) => {
    country,
    year,
  } = req.body;
- */
+ 
 
  //obje oluşturma
 
@@ -32,7 +32,7 @@ router.post('/',(req, res, next) => {
   res.json(data);
  }).catch((err) => {
    res.json(err);
- })
+ });
 
 
 
