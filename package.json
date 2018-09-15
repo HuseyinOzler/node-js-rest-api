@@ -1,5 +1,5 @@
 {
-  "name": "node-js-rest-api",
+  "name": "node-egitimi-movie-api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -9,22 +9,19 @@
   },
   "dependencies": {
     "bcrypt": "^3.0.0",
-    "body-parser": "^1.18.3",
+    "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "http-errors": "~1.6.2",
+    "express": "^4.15.5",
     "jade": "~1.11.0",
-    "jsonwebtoken": "^8.3.0",
-    "mongodb": "^3.1.4",
-    "mongoose": "^5.2.14",
-    "morgan": "~1.9.0"
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.17",
+    "morgan": "~1.9.0",
+    "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "chai-http": "^4.2.0",
-    "mocha": "^5.2.0"
+    "chai-http": "^3.0.0",
+    "mocha": "^4.1.0"
   }
 }
-
-
