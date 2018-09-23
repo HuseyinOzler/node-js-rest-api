@@ -4,9 +4,6 @@ const router = express.Router();
 
 //Model dosyasını dahil etme
 const Director = require('../models/Director');
-
-
-
 router.post('/',(req,res) => {
    
   const director = new Director(req.body);

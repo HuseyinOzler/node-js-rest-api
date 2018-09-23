@@ -11,8 +11,7 @@ const MovieSchema = new Schema({
     },
     category:{
         type:String,
-        maxlength:30,
-        minlength:3
+        
     },
     country:String,
     year:{

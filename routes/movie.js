@@ -2,57 +2,62 @@ const express = require('express');
 const router = express.Router();
 const Movie = require('../models/Movie');
 const mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 /* Film ekleme  */
 router.post('/',(req, res, next) => {
+const movie = new Movie(req.body);
+const promise = movie.save();
  /*const {
    title,
    imdb_score,
    category,
    country,
    year,
- } = req.body;
- 
-
- //obje oluşturma
-
- const movie = new Movie (req.body);
-
- //callback fonksiyonu kayıt işlemi tamamlama
-
- /* movie.save((err,data)=>{
-  if(err)
-  res.json({err});
-  res.json(data);
-
- }); */
-
-//kendi promize yapım daha düzenli kullanım 
- const promise = movie.save();
+ } = req.body; */
  promise.then((data) => {
   res.json(data);
  }).catch((err) => {
    res.json(err);
  });
+});
+
+
+
+
+router.get('/allmovies',(req,res) => {
+
+
+  const promise = Movie.find({})
+  promise.then((movies)=>{
+    res.json({movies})
+  }).catch((err,data)=>{
+    res.json(err);
+  });
 
 
 
 });
 
 
+
+
 //tüm filimleri getiren yönlendirici
+//from : ne ile eşleştirilecekse
 router.get('/', (req, res) => {
-  const promise = Movie.aggregate([{
-      $lookup: {
-        from: 'directors',
+  const promise = Movie.aggregate([
+    {
+      $lookup:{
+        from:'directors',
         localField: 'direction_id',
-        foreignField: '_id',
-        as: 'director'
+        foreignField:'_id',
+        as:'directors'
       }
     },
     {
-      $unwind: '$director'
+      $unwind:'$directors'
     }
-  ]); 
+  ])
+   
 
   promise.then((data) => {
     res.json(data);
@@ -153,14 +158,6 @@ router.get('/between/:start_year/:end_year',(req,res) => {
     res.json(err);
   });
 });
-
-
-
-
-
-
-
-
 
 
 

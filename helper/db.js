@@ -3,7 +3,7 @@ const mongoose=require('mongoose');
 
 module.exports = () => {
     mongoose.connect('mongodb://movie_user:osm147.1@ds245512.mlab.com:45512/movie-api', {
-        useNewUrlParser: true
+        useMongoClient: true
     });
     mongoose.connection.on('open', () => {
         console.log('MongoDb Connected');
