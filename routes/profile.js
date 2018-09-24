@@ -31,6 +31,9 @@ const upload = multer({
 
 const Product = require("../models/Profile");
 
+
+
+
 router.get("/", (req, res, next) => {
   Product.find()
     .select("name price _id productImage")

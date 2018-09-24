@@ -25,20 +25,49 @@ const promise = movie.save();
 
 
 router.get('/allmovies',(req,res) => {
+    const promise = Movie.aggregate([{
+        $lookup: {
+          from: 'profiles',
+          localField: 'image_id',
+          foreignField: '_id',
+          as: 'profiles'
+        }
+      },
+      {
+        $unwind: '$profiles'
+      }
+    ])
 
-
-  const promise = Movie.find({})
-  promise.then((movies)=>{
-    res.json({movies})
+  promise.then((data)=>{
+    res.json({data})
   }).catch((err,data)=>{
     res.json(err);
   });
 
-
-
 });
 
 
+router.get('/all', (req, res) => {
+  const promise = Movie.aggregate([{
+      $lookup: {
+        from: 'profiles',
+        localField: 'image_id',
+        foreignField: '_id',
+        as: 'profiles'
+      }
+    },
+    {
+      $unwind: '$profiles'
+    }
+  ])
+
+
+  promise.then((data) => {
+    res.json({data});
+  }).catch((err) => {
+    res.json(err);
+  })
+});
 
 
 //tüm filimleri getiren yönlendirici

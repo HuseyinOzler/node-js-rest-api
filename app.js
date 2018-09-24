@@ -51,7 +51,7 @@ app.use('/', index);
 //app.use('/api',verifyToken);
 app.use('/api/movies', movie);
 app.use('/api/directors', director);
-app.use('/api/profile',profile);
+app.use('/api/profiles',profile);
 app.use('/uploads',express.static('uploads'));
 
 

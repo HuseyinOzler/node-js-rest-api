@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const MovieSchema = new Schema({
     direction_id: Schema.Types.ObjectId,
+    image_id: Schema.Types.ObjectId,
     title:{
         type:String,
         required:[true,'` {PATH} ` alan girilmesi zorunludur'],
